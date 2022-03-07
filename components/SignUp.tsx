@@ -12,42 +12,9 @@ import {
   Text,
   TextInput,
 } from 'react-native-paper';
+import {signUpUser} from '../api/supertokens';
 import {NavigationProps} from '../routes';
 import {LoginComponentProps} from '../screens/LoginScreen';
-
-const signUpUser = ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}): Promise<any> => {
-  const myHeaders = new Headers();
-  myHeaders.append('rid', 'emailpassword');
-  myHeaders.append('Content-Type', 'application/json');
-
-  const raw = JSON.stringify({
-    formFields: [
-      {
-        id: 'email',
-        value: email,
-      },
-      {
-        id: 'password',
-        value: password,
-      },
-    ],
-  });
-
-  const requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow',
-  };
-
-  return fetch('http://localhost:3001/auth/signup', requestOptions);
-};
 
 const SignUpComponent: React.FC<LoginComponentProps> = ({
   email,
@@ -83,15 +50,14 @@ const SignUpComponent: React.FC<LoginComponentProps> = ({
         color="#ff9933"
         onPress={() => {
           signUpUser({email, password})
-            .then(response => response.json())
             .then(result => {
               console.log(result);
-              Alert.alert('User created', `${result.user.id}`, [
+              Alert.alert('User created', `${result.data.user.id}`, [
                 {text: 'OK', onPress: () => navigator.navigate('Home')},
               ]);
             })
-            .catch(error => console.log('error', error))
-            .finally(() => console.log('called Supertokens API'));
+            .catch(err => console.warn(JSON.stringify(err)))
+            .finally(() => console.log('Supertokens API has been called'));
         }}>
         Sign up
       </Button>

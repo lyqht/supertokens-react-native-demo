@@ -6,9 +6,13 @@ import {RootStackParamList} from './routes';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SuperTokens from 'supertokens-react-native';
+import axios from 'axios';
 
 const apiDomain = 'http://192.168.1.3:3001'; // TODO: change url to your own IP address
 
+SuperTokens.addAxiosInterceptors(axios);
+axios.defaults.headers.common.rid = 'emailpassword';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 SuperTokens.init({
   apiDomain,
   apiBasePath: '/auth',
