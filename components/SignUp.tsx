@@ -1,5 +1,4 @@
 import {useNavigation} from '@react-navigation/native';
-
 import * as React from 'react';
 import {Alert, Linking, StyleSheet, View} from 'react-native';
 import {

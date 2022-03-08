@@ -11,6 +11,7 @@ import axios from 'axios';
 const apiDomain = 'http://192.168.1.3:3001'; // TODO: change url to your own IP address
 
 SuperTokens.addAxiosInterceptors(axios);
+axios.defaults.baseURL = 'http://localhost:3001/auth';
 axios.defaults.headers.common.rid = 'emailpassword';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 SuperTokens.init({

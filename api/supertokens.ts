@@ -6,8 +6,8 @@ import {
   UserSignUpResult,
 } from '../types/supertokens';
 
-const BASE_PATH = 'http://localhost:3001/auth';
-const SIGNUP_PATH = BASE_PATH + '/signup';
+const SIGNUP_PATH = '/signup';
+const SIGNIN_PATH = '/signin';
 
 const createFormFields = (email: string, password: string): LoginFormFields => {
   return [
@@ -27,6 +27,15 @@ export const signUpUser = ({
   password,
 }: UserInputs): Promise<AxiosResponse<UserSignUpResult>> => {
   return axios.post(SIGNUP_PATH, {
+    formFields: createFormFields(email, password),
+  });
+};
+
+export const signInUser = ({
+  email,
+  password,
+}: UserInputs): Promise<AxiosResponse<UserSignUpResult>> => {
+  return axios.post(SIGNIN_PATH, {
     formFields: createFormFields(email, password),
   });
 };
