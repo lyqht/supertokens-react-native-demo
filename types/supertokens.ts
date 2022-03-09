@@ -8,6 +8,10 @@ export type LoginFormField = {
   value: string;
 };
 
+export type LoginRequestBody = {
+  formFields: LoginFormField[];
+};
+
 export interface UserInputs {
   [x: string]: string;
 }
@@ -18,9 +22,7 @@ export type User = {
   timeJoined: number;
 };
 
-export type UserSignUpResult = {
+export type UserLoginResult = {
   user: User;
   id: string;
 };
-
-export type LoginFormFields = LoginFormField[];
